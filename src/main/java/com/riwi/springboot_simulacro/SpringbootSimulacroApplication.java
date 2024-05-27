@@ -8,6 +8,7 @@ public class SpringbootSimulacroApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootSimulacroApplication.class, args);
+		System.out.println("Hola Mundo");
 	}
 
 }
