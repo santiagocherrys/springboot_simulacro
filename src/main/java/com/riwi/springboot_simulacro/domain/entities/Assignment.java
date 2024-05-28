@@ -1,10 +1,16 @@
 package com.riwi.springboot_simulacro.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "assignment")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +20,16 @@ public class Assignment {
     @Column(columnDefinition = "TEXT")
     private String  description;
     private LocalDate due_date;
-    @Column(nullable = false)
-    private Integer lesson_id;
+
+    //relaciones
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id")
+    private Lesson lesson;
+
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+
+    private List<Submission> submissions;
+
 }
