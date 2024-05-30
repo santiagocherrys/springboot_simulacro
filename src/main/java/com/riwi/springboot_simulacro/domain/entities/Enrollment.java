@@ -17,7 +17,7 @@ public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer enrollment_id;
-    private LocalDate enrollment_data;
+    private LocalDate enrollment_date;
 
     //relacion
     @ManyToOne(fetch = FetchType.LAZY)

@@ -20,7 +20,7 @@ public class Submission {
     private Integer submission_id;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private LocalDate submission_data;
+    private LocalDate submission_date;
     @Column(precision = 5, scale = 2)
     private BigDecimal grade;
 
