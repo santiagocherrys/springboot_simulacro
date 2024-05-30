@@ -1,5 +1,6 @@
 package com.riwi.springboot_simulacro.domain.entities;
 
+import com.riwi.springboot_simulacro.api.dto.response.CourseBasicResp;
 import com.riwi.springboot_simulacro.util.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -66,15 +67,5 @@ public class User {
     @EqualsAndHashCode.Exclude
     private List<Message> messageReceivers;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", full_name='" + full_name + '\'' +
-                ", role=" + role +
-                '}';
-    }
+
 }

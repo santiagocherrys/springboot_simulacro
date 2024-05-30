@@ -10,4 +10,5 @@ public interface CrudService<RQ,RS,ID> {
     public RS create(RQ request);
     public RS update(ID id, RQ request);
     public Page<RS> getAll(int page, int size);
+    public RS getById(ID id);
 }
