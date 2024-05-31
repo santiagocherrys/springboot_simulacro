@@ -31,7 +31,7 @@ public class Course {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id", referencedColumnName = "user_id")
-    private User user;
+    private User instructor;
 
     @OneToMany(mappedBy = "course",
             cascade = CascadeType.ALL,

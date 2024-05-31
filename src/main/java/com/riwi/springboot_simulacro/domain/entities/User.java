@@ -38,7 +38,7 @@ public class User {
     @EqualsAndHashCode.Exclude
     private List<Enrollment> enrollments;
 
-    @OneToMany(mappedBy="user",
+    @OneToMany(mappedBy="instructor",
                cascade=CascadeType.ALL,
                 orphanRemoval = false,
                 fetch = FetchType.EAGER

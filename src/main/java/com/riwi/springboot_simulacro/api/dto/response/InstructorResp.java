@@ -6,22 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResp {
+public class InstructorResp {
     private Integer id;
-    private String username;
-    private String password;
     private String email;
     private String full_name;
     private Role role;
-    private List<EnrollmentResp> enrollments;
-    private List<CourseBasicResp> courses;
-    private List<MessageResp> messageSenders;
-    private List<MessageResp> messageReceivers;
-    private List<SubmissionResp> submissions;
 }

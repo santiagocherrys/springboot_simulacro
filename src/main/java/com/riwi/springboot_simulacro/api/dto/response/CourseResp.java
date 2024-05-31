@@ -17,8 +17,8 @@ public class CourseResp {
     private Integer id;
     private String course_name;
     private String description;
-    private UserResp instructor;
-    private List<LessonResp> lessons;
+    private UserToCourseResp instructor;
+    private List<LessonToCourseResp> lessons;
     private List<MessageResp> messages;
     private List<EnrollmentResp> enrollments;
 }

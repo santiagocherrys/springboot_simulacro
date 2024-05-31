@@ -6,16 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LessonResp {
-    private Integer id;
+public class LessonToCourseResp {
+    private Integer lesson_id;
     private String lesson_title;
     private String content;
-    private CourseToLessonResp course;
-    private List<AssignmentResp> assignments;
 }

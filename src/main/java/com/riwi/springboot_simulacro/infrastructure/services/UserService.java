@@ -90,7 +90,7 @@ public class UserService implements IUserService {
 
     private UserResp entityToResp  (User entity){
 
-        List<CourseResp> courses = entity.getCourses()
+        List<CourseBasicResp> courses = entity.getCourses()
                 .stream()
                 .map(this::entityToResponseCourse)
                 .collect(Collectors.toList());
@@ -110,18 +110,16 @@ public class UserService implements IUserService {
                 .build();
     }
 
-    private CourseResp entityToResponseCourse(Course entity){
-        UserResp user = new UserResp();
-        BeanUtils.copyProperties(entity.getUser(), user);
+    private CourseBasicResp entityToResponseCourse(Course entity){
 
         List<LessonResp> lessons = new ArrayList<>();
         List<MessageResp> messages = new ArrayList<>();
         List<EnrollmentResp> enrollments = new ArrayList<>();
 
-        return CourseResp.builder()
+        return CourseBasicResp.builder()
+                .id(entity.getCourse_id())
                 .course_name(entity.getCourse_name())
                 .description(entity.getDescription())
-                .instructor(user)
                 .lessons(lessons)
                 .messages(messages)
                 .enrollments(enrollments)
