@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,7 +57,15 @@ public class CourseService implements ICourseService {
 
     @Override
     public Page<CourseResp> getAll(int page, int size) {
-        return null;
+        if(page < 0){
+            page = 0;
+        }
+
+        PageRequest pagination = PageRequest.of(page,size);
+
+        //expresión lambda inferencial
+        return this.courseRepository.findAll(pagination)
+                .map(this::entityToResponse);
     }
 
     @Override

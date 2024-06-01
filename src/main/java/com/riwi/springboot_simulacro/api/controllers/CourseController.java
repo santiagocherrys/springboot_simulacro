@@ -7,6 +7,7 @@ import com.riwi.springboot_simulacro.infrastructure.abstract_services.ICourseSer
 import lombok.AllArgsConstructor;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,13 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
     @Autowired
     private final ICourseService courseService;
+
+    @GetMapping
+    public ResponseEntity<Page<CourseResp>> getAll(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(this.courseService.getAll(page -1 , size));
+    }
 
     @PostMapping
     public ResponseEntity<CourseResp> insert(
