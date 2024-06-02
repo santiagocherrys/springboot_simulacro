@@ -1,13 +1,8 @@
 package com.riwi.springboot_simulacro.infrastructure.services;
 
 import com.riwi.springboot_simulacro.api.dto.request.CourseReq;
-import com.riwi.springboot_simulacro.api.dto.response.CourseResp;
-import com.riwi.springboot_simulacro.api.dto.response.CourseToLessonResp;
-import com.riwi.springboot_simulacro.api.dto.response.LessonToCourseResp;
-import com.riwi.springboot_simulacro.api.dto.response.UserToCourseResp;
-import com.riwi.springboot_simulacro.domain.entities.Course;
-import com.riwi.springboot_simulacro.domain.entities.Lesson;
-import com.riwi.springboot_simulacro.domain.entities.User;
+import com.riwi.springboot_simulacro.api.dto.response.*;
+import com.riwi.springboot_simulacro.domain.entities.*;
 import com.riwi.springboot_simulacro.domain.repositories.CourseRepository;
 import com.riwi.springboot_simulacro.domain.repositories.UserRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.ICourseService;
@@ -70,7 +65,8 @@ public class CourseService implements ICourseService {
 
     @Override
     public CourseResp getById(Integer id) {
-        return null;
+        var response = this.find(id);
+        return this.entityToResponse(response);
     }
 
     private Course requestToCourse(CourseReq request, Course course){
@@ -95,12 +91,21 @@ public class CourseService implements ICourseService {
         BeanUtils.copyProperties(entity,response);
 
         //Se mapean las lecciones que tiene course
-        /*response.setLessons(entity.getLessons().stream()
+        response.setLessons(entity.getLessons().stream()
                 .map(lesson -> this.lessonToResponse(lesson))
-                .collect(Collectors.toList()));*/
-        response.setLessons(new ArrayList<>());
-        response.setMessages(new ArrayList<>());
-        response.setEnrollments(new ArrayList<>());
+                .collect(Collectors.toList()));
+
+        //Se mapean los enrollments(inscripciones que tiene cada courso)
+
+        response.setEnrollments(entity.getEnrollments().stream()
+                .map(enrollment -> this.enrollmentToResponse(enrollment))
+                .collect(Collectors.toList()));
+
+
+
+        response.setMessages(entity.getMessages().stream()
+                .map(message -> this.messageToCourseResp(message)).collect(Collectors.toList()));
+
         response.setId(entity.getCourse_id());
 
         //Se copia
@@ -127,8 +132,49 @@ public class CourseService implements ICourseService {
         return response;
     }
 
+    private EnrollmentToCourseResp enrollmentToResponse(Enrollment entity){
+        EnrollmentToCourseResp response = new EnrollmentToCourseResp();
+
+        System.out.println("esto es lo que me llega de Enrollment " + entity);
+        //Se copian las propiedades
+        //BeanUtils.copyProperties(entity, response);
+        response.setId(entity.getEnrollment_id());
+        response.setEnrollment_date(entity.getEnrollment_date());
+        response.setEstudent(this.userToEnrollment(entity.getUser()));
+
+        return response;
+    }
+
     //Se hace funcion para buscar entidad
     private Course find(Integer id){
         return this.courseRepository.findById(id).orElseThrow();
+    }
+
+    private UserToEnrollmentResponse userToEnrollment(User user){
+        UserToEnrollmentResponse userToEnrollmentResponse = new UserToEnrollmentResponse();
+
+        //Copiamos los valores
+        userToEnrollmentResponse.setId(user.getUser_id());
+        userToEnrollmentResponse.setUsername(user.getUsername());
+        userToEnrollmentResponse.setEmail(user.getEmail());
+        userToEnrollmentResponse.setFull_name(user.getFull_name());
+        userToEnrollmentResponse.setRole(user.getRole());
+
+        return userToEnrollmentResponse;
+
+    }
+
+    private MessageToCourseResp messageToCourseResp(Message message){
+        MessageToCourseResp messageToCourseResp = new MessageToCourseResp();
+
+        //Se copia los campos
+        messageToCourseResp.setId(message.getMessage_id());
+        messageToCourseResp.setMessage_content(message.getMessage_content());
+        messageToCourseResp.setSent_date(message.getSent_date());
+        messageToCourseResp.setSender(this.userToEnrollment(message.getUserSender()));
+        messageToCourseResp.setReceiver(this.userToEnrollment(message.getUserReceiver()));
+
+        return messageToCourseResp;
+
     }
 }

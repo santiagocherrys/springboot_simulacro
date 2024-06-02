@@ -19,9 +19,9 @@ public class UserResp {
     private String email;
     private String full_name;
     private Role role;
-    private List<EnrollmentResp> enrollments;
+    private List<EnrollmentToUserResp> enrollments;
     private List<CourseBasicResp> courses;
     private List<MessageResp> messageSenders;
     private List<MessageResp> messageReceivers;
-    private List<SubmissionResp> submissions;
+    private List<SubmissionToUserResp> submissions;
 }

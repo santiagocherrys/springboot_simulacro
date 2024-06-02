@@ -18,7 +18,7 @@ public class MessageResp {
     private Integer id;
     private String message_content;
     private LocalDateTime sent_date;
-    private CourseResp course;
-    private UserResp sender;
-    private UserResp receiver;
+    private CourseBasicResp course;
+    private UserToCourseResp sender;
+    private UserToCourseResp receiver;
 }

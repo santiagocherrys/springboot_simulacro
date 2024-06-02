@@ -41,4 +41,12 @@ public class Course {
     @EqualsAndHashCode.Exclude
     private List<Message> messages;
 
+    @OneToMany(mappedBy = "course",
+                cascade = CascadeType.ALL,
+                orphanRemoval = false,
+                fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Enrollment>  enrollments;
+
 }

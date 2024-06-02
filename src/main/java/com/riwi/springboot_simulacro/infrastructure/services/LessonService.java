@@ -146,6 +146,7 @@ public class LessonService implements ILessonService {
     private AssignmentBasicResp assigmentToResponse(Assignment assignment) {
         AssignmentBasicResp response = new AssignmentBasicResp();
         BeanUtils.copyProperties(assignment, response);
+        response.setId(assignment.getAssignment_id());
         return response;
     }
 }

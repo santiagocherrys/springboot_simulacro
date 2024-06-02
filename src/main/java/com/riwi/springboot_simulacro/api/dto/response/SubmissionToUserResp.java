@@ -5,14 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseBasicResp {
+public class SubmissionToUserResp {
     private Integer id;
-    private String course_name;
-    private String description;
+    private String content;
+    private LocalDate submission_date;
+    private BigDecimal grade;
+    private AssignmentBasicResp assignment;
 }

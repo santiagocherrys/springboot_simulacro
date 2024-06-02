@@ -1,5 +1,6 @@
 package com.riwi.springboot_simulacro.api.dto.response;
 
+import com.riwi.springboot_simulacro.util.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseBasicResp {
+public class UserToEnrollmentResponse {
     private Integer id;
-    private String course_name;
-    private String description;
+    private String username;
+    private String email;
+    private String full_name;
+    private Role role;
 }

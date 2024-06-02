@@ -25,6 +25,11 @@ public class CourseController {
         return ResponseEntity.ok(this.courseService.getAll(page -1 , size));
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<CourseResp> get(@PathVariable Integer id){
+        return ResponseEntity.ok(this.courseService.getById(id));
+    }
+
     @PostMapping
     public ResponseEntity<CourseResp> insert(
             @RequestBody CourseReq request

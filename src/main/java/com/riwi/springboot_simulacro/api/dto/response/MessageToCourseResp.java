@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseBasicResp {
+public class MessageToCourseResp {
     private Integer id;
-    private String course_name;
-    private String description;
+    private String message_content;
+    private LocalDateTime sent_date;
+    private UserToEnrollmentResponse sender;
+    private UserToEnrollmentResponse receiver;
 }

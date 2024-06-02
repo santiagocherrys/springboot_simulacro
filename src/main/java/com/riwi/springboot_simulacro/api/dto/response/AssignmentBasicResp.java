@@ -17,7 +17,7 @@ public class AssignmentBasicResp {
     private String assignment_title;
     private String  description;
     private LocalDate due_date;
-    private List<SubmissionResp> submissions;
+    //private List<SubmissionResp> submissions;
 }
 
 
