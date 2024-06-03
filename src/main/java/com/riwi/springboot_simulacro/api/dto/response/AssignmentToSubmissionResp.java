@@ -1,6 +1,5 @@
 package com.riwi.springboot_simulacro.api.dto.response;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +12,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignmentResp {
+public class AssignmentToSubmissionResp {
     private Integer id;
     private String assignment_title;
     private String  description;
     private LocalDate due_date;
     private LessonToAssignmentResp lesson;
-    private List<SubmissionToAssignmentResp> submissions;
+
 }

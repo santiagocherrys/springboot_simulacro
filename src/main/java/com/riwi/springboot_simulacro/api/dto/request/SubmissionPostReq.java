@@ -1,6 +1,5 @@
 package com.riwi.springboot_simulacro.api.dto.request;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +12,8 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubmissionReq {
+public class SubmissionPostReq {
     private String content;
-    private LocalDate submission_date;
-    //esta es para el roll de estudiante
-    private BigDecimal grade;
     private Integer user_id;
     private Integer assignment_id;
 }

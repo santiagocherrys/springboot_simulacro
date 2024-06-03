@@ -104,7 +104,7 @@ public class LessonService implements ILessonService {
         //Se copia las propidades de la entidad al dto de respuesta
         BeanUtils.copyProperties(lesson, response);
 
-        //crear la instancia de dto de course dentro de vacante
+        //crear la instancia de dto de course dentro de lesson
         CourseToLessonResp courseResp = new CourseToLessonResp();
 
         System.out.println("El id del curso es " + lesson.getCourse().getCourse_id());

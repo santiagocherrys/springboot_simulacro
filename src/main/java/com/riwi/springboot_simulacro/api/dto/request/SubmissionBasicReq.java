@@ -1,6 +1,5 @@
-package com.riwi.springboot_simulacro.api.dto.response;
+package com.riwi.springboot_simulacro.api.dto.request;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +12,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubmissionResp {
-    private Integer id;
+public class SubmissionBasicReq {
     private String content;
-    private LocalDate submission_date;
     private BigDecimal grade;
-    private UserToEnrollmentResponse user;
-    private AssignmentToSubmissionResp assignment;
 }

@@ -31,14 +31,14 @@ public class LessonController {
         return ResponseEntity.ok(this.lessonService.getAll(page -1, size));
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<LessonResp> get(
             @PathVariable Integer id
     ){
         return ResponseEntity.ok(this.lessonService.getById(id));
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id){
         //Crear el map
         Map<String, String> response =  new HashMap<>();
@@ -50,7 +50,7 @@ public class LessonController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<LessonResp> update(@PathVariable Integer id,
                                              @RequestBody LessonBasicReq request){
         LessonReq lesson = new LessonReq();
