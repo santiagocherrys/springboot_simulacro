@@ -12,6 +12,7 @@ import com.riwi.springboot_simulacro.domain.entities.User;
 import com.riwi.springboot_simulacro.domain.repositories.AssignmentRepository;
 import com.riwi.springboot_simulacro.domain.repositories.LessonRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.IAssignmentService;
+import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class AssignmentService implements IAssignmentService {
     @Override
     public AssignmentResp create(AssignmentReq request) {
         //se revisa el id de lesson sea valido
-        Lesson lesson = this.lessonRepository.findById(request.getLesson_id()).orElseThrow();
+        Lesson lesson = this.lessonRepository.findById(request.getLesson_id()).orElseThrow(() -> new IdNotFoundException("Lesson"));
 
         Assignment assignment = new Assignment();
         assignment.setLesson(lesson);
@@ -119,7 +120,7 @@ public class AssignmentService implements IAssignmentService {
 
     }
     private Assignment find(Integer id){
-        return this.assignmentRepository.findById(id).orElseThrow();
+        return this.assignmentRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Assignment"));
     }
 
     private SubmissionToAssignmentResp submissionToResponse(Submission entity){

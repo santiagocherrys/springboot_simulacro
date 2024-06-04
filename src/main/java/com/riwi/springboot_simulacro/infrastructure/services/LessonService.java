@@ -9,6 +9,7 @@ import com.riwi.springboot_simulacro.domain.entities.User;
 import com.riwi.springboot_simulacro.domain.repositories.CourseRepository;
 import com.riwi.springboot_simulacro.domain.repositories.LessonRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.ILessonService;
+import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class LessonService implements ILessonService {
 
         //se revisa que el id de course sea valido
         Course course = this.courseRepository.findById(request.getCourse_id())
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("Course"));
 
         Lesson lessonHelp = new Lesson();
         lessonHelp.setCourse(course);
@@ -140,7 +141,7 @@ public class LessonService implements ILessonService {
     }
 
     private Lesson find(Integer id) {
-        return this.lessonRepository.findById(id).orElseThrow();
+        return this.lessonRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Lesson"));
     }
 
     private AssignmentBasicResp assigmentToResponse(Assignment assignment) {

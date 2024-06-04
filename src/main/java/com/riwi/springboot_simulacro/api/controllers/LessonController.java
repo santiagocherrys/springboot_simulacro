@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -52,6 +53,7 @@ public class LessonController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<LessonResp> update(@PathVariable Integer id,
+                                             @Validated
                                              @RequestBody LessonBasicReq request){
         LessonReq lesson = new LessonReq();
         lesson.setLesson_title(request.getLesson_title());
@@ -61,6 +63,7 @@ public class LessonController {
     }
     @PostMapping
     public ResponseEntity<LessonResp> insert(
+            @Validated
             @RequestBody LessonReq request
     ){
         return ResponseEntity.ok(this.lessonService.create(request));

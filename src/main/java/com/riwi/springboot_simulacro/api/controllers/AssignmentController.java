@@ -1,14 +1,15 @@
 package com.riwi.springboot_simulacro.api.controllers;
 
 import com.riwi.springboot_simulacro.api.dto.request.AssignmentBasicReq;
+import com.riwi.springboot_simulacro.api.dto.request.AssignmentNoTimeReq;
 import com.riwi.springboot_simulacro.api.dto.request.AssignmentReq;
-import com.riwi.springboot_simulacro.api.dto.response.AssignmentNoTimeReq;
 import com.riwi.springboot_simulacro.api.dto.response.AssignmentResp;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.IAssignmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +26,9 @@ public class AssignmentController {
     private final IAssignmentService assignmentService;
 
     @PostMapping
-    private ResponseEntity<AssignmentResp> insert(@RequestBody AssignmentNoTimeReq response){
+    private ResponseEntity<AssignmentResp> insert(
+            @Validated
+            @RequestBody AssignmentNoTimeReq response){
         AssignmentReq assignmentReq = new AssignmentReq();
 
         //Se obtiene fecha
@@ -76,6 +79,7 @@ public class AssignmentController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<AssignmentResp> update(
             @PathVariable Integer id,
+            @Validated
             @RequestBody AssignmentBasicReq request){
 
         //Se obtiene fecha

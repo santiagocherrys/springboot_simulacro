@@ -11,6 +11,7 @@ import com.riwi.springboot_simulacro.domain.repositories.AssignmentRepository;
 import com.riwi.springboot_simulacro.domain.repositories.SubmissionRepository;
 import com.riwi.springboot_simulacro.domain.repositories.UserRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.ISubmissionService;
+import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,9 @@ public class SubmissionService implements ISubmissionService {
 
         //Se revisa que primero existan user y assginment
         User user = this.userRepository.findById(request.getUser_id())
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("User"));
 
-        Assignment assignment = this.assignmentRepository.findById(request.getAssignment_id()).orElseThrow();
+        Assignment assignment = this.assignmentRepository.findById(request.getAssignment_id()).orElseThrow(() -> new IdNotFoundException("Assignment"));
         //Se crea entidad
 
         Submission submission = new Submission();
@@ -93,8 +94,8 @@ public class SubmissionService implements ISubmissionService {
         submission.setContent(request.getContent());
         submission.setSubmission_date(request.getSubmission_date());
         submission.setGrade(request.getGrade());
-        submission.setUser(this.userRepository.findById(request.getUser_id()).orElseThrow());
-        submission.setAssignment(this.assignmentRepository.findById(request.getAssignment_id()).orElseThrow());
+        submission.setUser(this.userRepository.findById(request.getUser_id()).orElseThrow(() -> new IdNotFoundException("User")));
+        submission.setAssignment(this.assignmentRepository.findById(request.getAssignment_id()).orElseThrow(() -> new IdNotFoundException("Assignment")));
 
         return submission;
     }
@@ -136,7 +137,7 @@ public class SubmissionService implements ISubmissionService {
     }
 
     private Submission find(Integer id){
-        return this.submissionRepository.findById(id).orElseThrow();
+        return this.submissionRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Submission"));
     }
 
     private LessonToAssignmentResp lessonToLessonAssigmentResponse(Lesson lesson){

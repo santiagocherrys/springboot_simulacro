@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class UserController {
     }
     @PostMapping
     public ResponseEntity<UserResp> insert(
+            @Validated
             @RequestBody UserReq request
     ){
         return ResponseEntity.ok(this.userService.create(request));
@@ -46,6 +48,7 @@ public class UserController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<UserResp> update(@PathVariable Integer id,
+                                           @Validated
                                            @RequestBody UserReq request){
        return ResponseEntity.ok(this.userService.update(id, request));
     }

@@ -6,6 +6,7 @@ import com.riwi.springboot_simulacro.domain.entities.*;
 import com.riwi.springboot_simulacro.domain.repositories.CourseRepository;
 import com.riwi.springboot_simulacro.domain.repositories.UserRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.ICourseService;
+import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class CourseService implements ICourseService {
         course.setDescription(request.getDescription());
         //Se busca instructor
         System.out.println("Este es el id del instructor" + request.getInstructor_id());
-        User instructor = this.userRepository.findById(request.getInstructor_id()).orElseThrow();
+        User instructor = this.userRepository.findById(request.getInstructor_id()).orElseThrow(() -> new IdNotFoundException("User"));
         System.out.println("El objeto de java de instructor " + instructor);
         course.setInstructor(instructor);
 
@@ -147,7 +148,7 @@ public class CourseService implements ICourseService {
 
     //Se hace funcion para buscar entidad
     private Course find(Integer id){
-        return this.courseRepository.findById(id).orElseThrow();
+        return this.courseRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Course"));
     }
 
     private UserToEnrollmentResponse userToEnrollment(User user){

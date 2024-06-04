@@ -9,6 +9,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,6 +33,7 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<CourseResp> insert(
+            @Validated
             @RequestBody CourseReq request
     ){
         return ResponseEntity.ok(this.courseService.create(request));
@@ -47,6 +49,7 @@ public class CourseController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<CourseResp> update(@PathVariable Integer id,
+                                             @Validated
                                              @RequestBody CourseBasicReq request){
         //Este paso se hace ya que por el CRUD solo resive CourseReq pero
         //necesitamos un campo menos que es el CourseBasic por eso

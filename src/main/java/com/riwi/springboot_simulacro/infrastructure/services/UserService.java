@@ -5,6 +5,7 @@ import com.riwi.springboot_simulacro.api.dto.response.*;
 import com.riwi.springboot_simulacro.domain.entities.*;
 import com.riwi.springboot_simulacro.domain.repositories.UserRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.IUserService;
+import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,6 +219,6 @@ public class UserService implements IUserService {
     }
 
     private User find(Integer id){
-        return this.userRepository.findById(id).orElseThrow();
+        return this.userRepository.findById(id).orElseThrow(() -> new IdNotFoundException("User"));
     }
 }

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -54,6 +55,7 @@ public class SubmissionController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<SubmissionResp> update(@PathVariable Integer id,
+                                                 @Validated
                                                  @RequestBody SubmissionBasicReq request){
         SubmissionReq submission = new SubmissionReq();
         submission.setContent(request.getContent());
@@ -64,6 +66,7 @@ public class SubmissionController {
 
     @PostMapping
     public ResponseEntity<SubmissionResp> insert(
+            @Validated
             @RequestBody SubmissionPostReq request
     ){
         SubmissionReq submissionReq = new SubmissionReq();
