@@ -19,6 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class SubmissionService implements ISubmissionService {
@@ -80,6 +83,8 @@ public class SubmissionService implements ISubmissionService {
         //Se crea la paginacion
         PageRequest pagination = PageRequest.of(page , size);
 
+
+
         //Se obtiene todas las lessiones de la base de datos
         return this.submissionRepository.findAll(pagination).map(submission -> this.entityToResponse(submission));
     }
@@ -140,6 +145,7 @@ public class SubmissionService implements ISubmissionService {
         return this.submissionRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Submission"));
     }
 
+
     private LessonToAssignmentResp lessonToLessonAssigmentResponse(Lesson lesson){
         LessonToAssignmentResp lessonToAssignmentResp = new LessonToAssignmentResp();
 
@@ -147,5 +153,14 @@ public class SubmissionService implements ISubmissionService {
         lessonToAssignmentResp.setLesson_title(lesson.getLesson_title());
         lessonToAssignmentResp.setContent(lesson.getContent());
         return lessonToAssignmentResp;
+    }
+
+    @Override
+    //Consulta personalizada
+    public List<SubmissionResp> findSubmissionByAssignments(Integer assignment_id) {
+        List<Submission> submissions = this.submissionRepository.findByAssignment(this.assignmentRepository.findById(assignment_id).orElseThrow());
+
+        return submissions.stream().map(submission -> this.entityToResponse(submission)).collect(Collectors.toList());
+
     }
 }

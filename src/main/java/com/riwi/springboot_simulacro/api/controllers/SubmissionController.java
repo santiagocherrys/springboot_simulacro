@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -50,6 +51,14 @@ public class SubmissionController {
             @PathVariable Integer id
     ){
         return ResponseEntity.ok(this.submissionService.getById(id));
+    }
+
+    //@GetMapping(path = "/{assignmnet_id}/assignments")
+    @GetMapping(path = "/{assignment_id}/assignments")
+    public List<SubmissionResp> getAllByAssignment(@PathVariable Integer assignment_id){
+        return this.submissionService.findSubmissionByAssignments(assignment_id);
+
+        //return "esta es la variable " + ident;
     }
 
     @Operation(
