@@ -5,6 +5,8 @@ import com.riwi.springboot_simulacro.api.dto.request.AssignmentNoTimeReq;
 import com.riwi.springboot_simulacro.api.dto.request.AssignmentReq;
 import com.riwi.springboot_simulacro.api.dto.response.AssignmentResp;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.IAssignmentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,10 +23,15 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "assignments")
 @AllArgsConstructor
+@Tag(name = "Assignments")
 public class AssignmentController {
     @Autowired
     private final IAssignmentService assignmentService;
 
+    @Operation(
+            summary = "Crea un assignment",
+            description = "Crea un assignment"
+    )
     @PostMapping
     private ResponseEntity<AssignmentResp> insert(
             @Validated
@@ -49,6 +56,11 @@ public class AssignmentController {
         //return null;
 
     }
+
+    @Operation(
+            summary = "Borra un Assignment por ID",
+            description = "Borra un Assignment por ID"
+    )
     @DeleteMapping(path = "{id}")
     private ResponseEntity<Map<String,String>> delete(@PathVariable Integer id){
         //Se crea el map
@@ -61,6 +73,10 @@ public class AssignmentController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(
+            summary = "Lista todas los Assignmnet con paginación",
+            description = "Debes enviar la página y el tamaño de la página para recibir todas las variabes correspondientes"
+    )
     @GetMapping
     public ResponseEntity<Page<AssignmentResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
@@ -69,6 +85,10 @@ public class AssignmentController {
         return ResponseEntity.ok(this.assignmentService.getAll(page - 1, size));
     }
 
+    @Operation(
+            summary = "Lista un assignment por id",
+            description = "Debes enviar el id para filtrar por id"
+    )
     @GetMapping(path = "/{id}")
     public ResponseEntity<AssignmentResp> get(
             @PathVariable Integer id
@@ -76,6 +96,10 @@ public class AssignmentController {
         return ResponseEntity.ok(this.assignmentService.getById(id));
     }
 
+    @Operation(
+            summary = "Actualiza una vacante por id",
+            description = "Debes enviar el id para actualizar por id"
+    )
     @PutMapping(path = "/{id}")
     public ResponseEntity<AssignmentResp> update(
             @PathVariable Integer id,

@@ -5,6 +5,8 @@ import com.riwi.springboot_simulacro.api.dto.request.SubmissionPostReq;
 import com.riwi.springboot_simulacro.api.dto.request.SubmissionReq;
 import com.riwi.springboot_simulacro.api.dto.response.SubmissionResp;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.ISubmissionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,11 +23,16 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "/submissions")
 @AllArgsConstructor
+@Tag(name = "Submissions")
 public class SubmissionController {
 
     @Autowired
     private final ISubmissionService submissionService;
 
+    @Operation(
+            summary = "Lista todos los Submissions con paginación",
+            description = "Debes enviar la página y el tamaño de la página para recibir todas las variabes correspondientes"
+    )
     @GetMapping
     public ResponseEntity<Page<SubmissionResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
@@ -34,6 +41,10 @@ public class SubmissionController {
         return ResponseEntity.ok(this.submissionService.getAll(page - 1,size));
     }
 
+    @Operation(
+            summary = "Lista un submission por id",
+            description = "Debes enviar el id para filtrar por id"
+    )
     @GetMapping(path = "{id}")
     public ResponseEntity<SubmissionResp> get(
             @PathVariable Integer id
@@ -41,6 +52,10 @@ public class SubmissionController {
         return ResponseEntity.ok(this.submissionService.getById(id));
     }
 
+    @Operation(
+            summary = "Elimina un submission por id",
+            description = "Debes enviar el id para eliminar"
+    )
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id){
         //Crear el map
@@ -53,6 +68,10 @@ public class SubmissionController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(
+            summary = "Actualiza una submission por id",
+            description = "Debes enviar el id para actualizar"
+    )
     @PutMapping(path = "/{id}")
     public ResponseEntity<SubmissionResp> update(@PathVariable Integer id,
                                                  @Validated
@@ -64,6 +83,10 @@ public class SubmissionController {
         return ResponseEntity.ok(this.submissionService.update(id,submission));
     }
 
+    @Operation(
+            summary = "Crea un submission",
+            description = "Crea un submission"
+    )
     @PostMapping
     public ResponseEntity<SubmissionResp> insert(
             @Validated
