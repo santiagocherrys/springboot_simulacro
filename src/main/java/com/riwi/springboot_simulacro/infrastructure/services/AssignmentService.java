@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,6 +76,8 @@ public class AssignmentService implements IAssignmentService {
         //Se crea la paginación
         PageRequest pagination = PageRequest.of(page, size);
 
+
+
         //Se obtiene  todos los assigments  de la base de datos
         return this.assignmentRepository.findAll(pagination).map(assignment -> this.entityToResponse(assignment));
     }
@@ -84,6 +87,7 @@ public class AssignmentService implements IAssignmentService {
 
         return this.entityToResponse(this.find(id));
     }
+
 
     private Assignment requestToAssignment(AssignmentReq request, Assignment assignment){
 
@@ -147,4 +151,10 @@ public class AssignmentService implements IAssignmentService {
         return response;
     }
 
+    @Override
+    public List<AssignmentResp> getAllAssignmentsByLesson(Integer id) {
+        List<Assignment> assignments = this.assignmentRepository.findByLesson(this.lessonRepository.findById(id).orElseThrow(() -> new IdNotFoundException("No se encuentra la lessión buscada")));
+
+        return assignments.stream().map(assignment -> this.entityToResponse(assignment)).collect(Collectors.toList());
+    }
 }

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -94,6 +95,12 @@ public class AssignmentController {
             @PathVariable Integer id
     ){
         return ResponseEntity.ok(this.assignmentService.getById(id));
+    }
+
+    //Consulta especial
+    @GetMapping(path = "/{lesson_id}/lessons")
+    public List<AssignmentResp> getAllByLesson(@PathVariable Integer lesson_id){
+        return this.assignmentService.getAllAssignmentsByLesson(lesson_id);
     }
 
     @Operation(

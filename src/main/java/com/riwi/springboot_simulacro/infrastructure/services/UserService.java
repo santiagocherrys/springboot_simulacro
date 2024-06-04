@@ -5,6 +5,7 @@ import com.riwi.springboot_simulacro.api.dto.response.*;
 import com.riwi.springboot_simulacro.domain.entities.*;
 import com.riwi.springboot_simulacro.domain.repositories.UserRepository;
 import com.riwi.springboot_simulacro.infrastructure.abstract_services.IUserService;
+import com.riwi.springboot_simulacro.util.enums.Role;
 import com.riwi.springboot_simulacro.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -68,6 +69,7 @@ public class UserService implements IUserService {
         PageRequest pagination = null;
         pagination = PageRequest.of(page, size);
 
+        System.out.println("Esto es la consulta especializada: " +this.userRepository.findByRole(Role.INSTRUCTOR));
         return this.userRepository.findAll(pagination)
                 .map(this::entityToResp);
 
